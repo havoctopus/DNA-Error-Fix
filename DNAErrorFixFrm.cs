@@ -377,5 +377,19 @@ namespace DNA_Error_Fix_UI
         {
             Environment.Exit(0);
         }
+
+        private void maleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            femaleToolStripMenuItem.Checked = false;
+            maleToolStripMenuItem.Checked = true;
+            DNAFixUtil.male = true;
+        }
+
+        private void femaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            maleToolStripMenuItem.Checked = false;
+            femaleToolStripMenuItem.Checked = true;
+            DNAFixUtil.male = false;
+        }
     }
 }

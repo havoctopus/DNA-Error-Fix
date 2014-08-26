@@ -20,6 +20,8 @@ namespace DNA_Error_Fix_UI
 
         static bool use_one_allele_23andme = false;
 
+        public static bool male=false;
+
         public static void MasterSNPlist(string[] files)
         {
             map.Clear();
@@ -80,7 +82,14 @@ namespace DNA_Error_Fix_UI
                     data = tLine.Split(",".ToCharArray());
                     key = data[0] + ":" + data[1];
                     value = data[3];
-                    snp = fixSNP(key, value, map, file);
+                    if (data[1] == "X")
+                        chr = 23;
+                    else if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25" || data[1] == "0"))
+                        chr = int.Parse(data[1]);
+                    if(chr==23 && male)
+                        snp = fixSNP_X(key, value, map, file);
+                    else
+                        snp = fixSNP(key, value, map, file);
                     if (snp == Reverse(value) && snp!=value)
                         snp = value;
                     fw.WriteLine("\"" + data[0] + "\",\"" + data[1] + "\",\"" + data[2] + "\",\"" + snp + "\"");
@@ -88,10 +97,6 @@ namespace DNA_Error_Fix_UI
                     if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25" || data[1] == "0"))
                     {
                         pos = long.Parse(data[2]);
-                        if (data[1] == "X")
-                            chr = 23;
-                        else
-                            chr = int.Parse(data[1]);
                         if (rsid_pos_map[chr - 1] == null)
                             rsid_pos_map[chr - 1] = new SortedDictionary<long, string>();
                         if (!rsid_pos_map[chr - 1].ContainsKey(pos))
@@ -111,7 +116,15 @@ namespace DNA_Error_Fix_UI
                     data = line.Split("\t".ToCharArray());
                     key = data[0] + ":" + data[1];
                     value = data[3];
-                    snp = fixSNP(key, value, map, file);
+                    if (data[1] == "X")
+                        chr = 23;
+                    else if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25"))
+                        chr = int.Parse(data[1]);
+
+                    if (chr == 23 && male)
+                        snp = fixSNP_X(key, value, map, file);
+                    else
+                        snp = fixSNP(key, value, map, file);
                     if (snp == Reverse(value) && snp != value)
                         snp = value;
                     if (use_one_allele_23andme && data[1]=="X") // means male and only one allele must exist
@@ -124,10 +137,6 @@ namespace DNA_Error_Fix_UI
                     if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25"))
                     {
                         pos = long.Parse(data[2]);
-                        if (data[1] == "X")
-                            chr = 23;
-                        else
-                            chr = int.Parse(data[1]);
                         if (rsid_pos_map[chr - 1] == null)
                             rsid_pos_map[chr - 1] = new SortedDictionary<long, string>();
                         if (!rsid_pos_map[chr - 1].ContainsKey(pos))
@@ -155,7 +164,17 @@ namespace DNA_Error_Fix_UI
                     else
                         key = data[0] + ":" + data[1];
                     value = data[3] + data[4];
-                    tLine=fixSNP(key, value, map,file);
+
+                    if (data[1] == "X")
+                        chr = 23;
+                    else if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25"))
+                        chr = int.Parse(data[1]);
+
+                    if (chr == 23 && male)
+                        tLine = fixSNP_X(key, value, map, file);
+                    else
+                        tLine = fixSNP(key, value, map, file);
+
                     allele1 = tLine[0] + "";
                     allele2 = tLine[1] + "";
                     snp = allele1 + allele2;
@@ -169,11 +188,7 @@ namespace DNA_Error_Fix_UI
                     //
                     if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25"))
                     {
-                        pos = long.Parse(data[2]);
-                        if (data[1] == "X")
-                            chr = 23;
-                        else
-                            chr = int.Parse(data[1]);
+                        pos = long.Parse(data[2]);                        
                         if (rsid_pos_map[chr - 1] == null)
                             rsid_pos_map[chr - 1] = new SortedDictionary<long, string>();
                         if (!rsid_pos_map[chr - 1].ContainsKey(pos))
@@ -193,7 +208,15 @@ namespace DNA_Error_Fix_UI
                     data = line.Split(",".ToCharArray());
                     key = data[0] + ":" + data[2];
                     value = data[5];
-                    snp = fixSNP(key, value, map, file);
+                    if (data[2] == "X")
+                        chr = 23;
+                    else if (!(data[2] == "Y" || data[2] == "MT" || data[2] == "M" || data[2] == "24" || data[2] == "25"))
+                        chr = int.Parse(data[2]);
+
+                    if (chr == 23 && male)
+                        snp = fixSNP_X(key, value, map, file);
+                    else
+                        snp = fixSNP(key, value, map, file);
                     if (snp == Reverse(value) && snp != value)
                         snp = value;
                     fw.WriteLine(data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + snp);
@@ -201,10 +224,6 @@ namespace DNA_Error_Fix_UI
                     if (!(data[2] == "Y" || data[2] == "MT" || data[2] == "M" || data[2] == "24" || data[2] == "25"))
                     {
                         pos = long.Parse(data[3]);
-                        if (data[2] == "X")
-                            chr = 23;
-                        else
-                            chr = int.Parse(data[2]);
                         if (rsid_pos_map[chr - 1] == null)
                             rsid_pos_map[chr - 1] = new SortedDictionary<long, string>();
                         if (!rsid_pos_map[chr - 1].ContainsKey(pos))
@@ -213,6 +232,89 @@ namespace DNA_Error_Fix_UI
                 }
             }
             fw.Close();
+        }
+
+        private static string fixSNP_X(string key, string value, Hashtable map, String file)
+        {
+            // for males and X only
+            String file_only = Path.GetFileName(file);
+            ArrayList value_array = (ArrayList)map[key];
+            if (value_array == null)
+                return value;
+            bool is_error = false;
+            foreach (string v in value_array)
+            {
+                if (v != value)
+                    is_error = true;
+            }
+            if (!is_error)
+                return value;
+
+            Hashtable snps = new Hashtable();
+            snps.Add("AA", 0);
+            snps.Add("TT", 0);
+            snps.Add("GG", 0);
+            snps.Add("CC", 0);
+
+            int count = 0;
+            foreach (string v in value_array)
+            {
+                if (snps.ContainsKey(v))
+                {
+                    count = (int)snps[v];
+                    snps.Remove(v);
+                    count++;
+                    snps.Add(v, count);
+                }
+                else if (snps.ContainsKey(Reverse(v)))
+                {
+                    count = (int)snps[Reverse(v)];
+                    snps.Remove(Reverse(v));
+                    count++;
+                    snps.Add(Reverse(v), count);
+                }
+                else if (snps.ContainsKey(v[0] + v[0]))
+                {
+                    count = (int)snps[v[0] + v[0]];
+                    snps.Remove(v[0] + v[0]);
+                    count++;
+                    snps.Add(v[0] + v[0], count);
+                }
+                else if (snps.ContainsKey(v[1] + v[1]))
+                {
+                    count = (int)snps[v[1] + v[1]];
+                    snps.Remove(v[1] + v[1]);
+                    count++;
+                    snps.Add(v[1] + v[1], count);
+                }
+                else
+                {
+                    // no call - dont count
+                }
+            }
+            string snp = null;
+            int max = 0;
+            foreach (string k in snps.Keys)
+            {
+                if (((int)snps[k]) > max)
+                {
+                    max = (int)snps[k];
+                    snp = k;
+                }
+            }
+            if (snp == null)
+                snp = value;
+
+            if (snp != value)
+            {
+                ArrayList list = new ArrayList();
+                if (fixed_snps.ContainsKey(key))
+                    list = (ArrayList)fixed_snps[key];
+                fixed_snps.Remove(key);
+                list.Add(file_only + ":" + snp);
+                fixed_snps.Add(key, list);
+            }
+            return snp;
         }
 
         private static string fixSNP(string key, string value, Hashtable map, String file)
