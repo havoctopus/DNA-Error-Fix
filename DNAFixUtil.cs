@@ -85,7 +85,7 @@ namespace DNA_Error_Fix_UI
                         snp = value;
                     fw.WriteLine("\"" + data[0] + "\",\"" + data[1] + "\",\"" + data[2] + "\",\"" + snp + "\"");
 
-                    if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25"))
+                    if (!(data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25" || data[1] == "0"))
                     {
                         pos = long.Parse(data[2]);
                         if (data[1] == "X")
@@ -328,7 +328,7 @@ namespace DNA_Error_Fix_UI
                     value=data[3];
                     value=value.Replace("D","-");
 
-                    if (data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25")
+                    if (data[1] == "Y" || data[1] == "MT" || data[1] == "M" || data[1] == "24" || data[1] == "25" || data[1] == "0")
                         continue;
 
                 }
