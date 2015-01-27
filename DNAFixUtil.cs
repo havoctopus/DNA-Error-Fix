@@ -569,6 +569,9 @@ namespace DNA_Error_Fix_UI
                     if (!map_rm.ContainsKey(key)) //duplicate from another build another file
                         continue;
 
+                    if (rsid_chr_snp[2] == "00" || rsid_chr_snp[2] == "--" || rsid_chr_snp[2] == "II" || rsid_chr_snp[2] == "DD" || rsid_chr_snp[2] == "??")
+                        continue;
+
                     switch (type)
                     {
                         case TYPE_FTDNA:

@@ -234,7 +234,7 @@ namespace DNA_Error_Fix_UI
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Version: "+Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString()+"\r\nDeveloper: Felix Jeyareuben <i@fc.id.au>\nWebsite: y-str.org/tools/dna-error-fix", "About DNA Error Fix", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Version: "+Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString()+"\r\nDeveloper: Felix Immanuel <i@fi.id.au>\nWebsite: y-str.org/tools/dna-error-fix", "About DNA Error Fix", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void fixErrorsAndNoCallsToolStripMenuItem_Click(object sender, EventArgs e)
